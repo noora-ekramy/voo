@@ -47,22 +47,12 @@ def load_model_and_predict(distance, surge_multiplier, rain, temp, humidity, clo
     except FileNotFoundError:
         st.error("Required model files not found. Please ensure all model files are in the correct directory.")
         return None
-def calculate_fare(distance, duration):
-    # Constants
-    booking_fee = 2.02
-    base_fare = 2.45
-    waiting_time_rate = 0.17
-    distance_rate = 0.73
- 
-    tax_rate = 0.062
-    extra_charge_rate = 0.06
-    minimum_fare = 5.0
 
-    
-    trip_fare = max(base_fare + (waiting_time_rate * duration) + (distance * distance_rate) , minimum_fare)
+def calculate_fare(distance, duration, booking_fee, base_fare, waiting_time_rate, distance_rate, minimum_fare):
+    trip_fare = max(base_fare + (waiting_time_rate * duration) + (distance * distance_rate), minimum_fare)
     grand_total = trip_fare + booking_fee
-
     return round(grand_total, 2)
+
 # Streamlit app
 st.title('Cab Ride Price Predictor')
 
@@ -99,9 +89,20 @@ if st.button('Predict Price'):
 
 # Voo's Current Calculation Section
 st.title("Voo's Current Fare Calculator")
+
+# Fare calculation inputs
+st.subheader("Trip Details")
 distance_voo = st.number_input('Trip Distance for Voo (mil)', min_value=0.1, max_value=1000.0, value=5.0, key='distance_voo')
 duration_voo = st.number_input('Trip Duration (minutes)', min_value=1, max_value=120, value=15)
 
+st.subheader("Fare Components")
+booking_fee = st.number_input('Booking Fee ($)', min_value=0.0, value=2.02, step=0.01)
+base_fare = st.number_input('Base Fare ($)', min_value=0.0, value=2.45, step=0.01)
+waiting_time_rate = st.number_input('Waiting Time Rate ($/minute)', min_value=0.0, value=0.17, step=0.01)
+distance_rate = st.number_input('Distance Rate ($/mile)', min_value=0.0, value=0.73, step=0.01)
+minimum_fare = st.number_input('Minimum Fare ($)', min_value=0.0, value=5.0, step=0.01)
+
 if st.button('Calculate Voo Fare'):
-    voo_price = calculate_fare(distance_voo, duration_voo)
+    voo_price = calculate_fare(distance_voo, duration_voo, booking_fee, base_fare, 
+                             waiting_time_rate, distance_rate, minimum_fare)
     st.success(f"Voo's Current Fare: ${voo_price:.2f}")
