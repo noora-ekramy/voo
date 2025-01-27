@@ -10,7 +10,7 @@ def load_model_and_predict(distance, surge_multiplier, rain, temp, humidity, clo
     
     Args:
         distance (float): Trip distance
-        surge_multiplier (float): Surge pricing multiplier
+        surge_multiplier (float): Surge multiplier
         rain (bool): Whether it's raining
         temp (float): Temperature
         humidity (int): Humidity percentage
@@ -47,13 +47,28 @@ def load_model_and_predict(distance, surge_multiplier, rain, temp, humidity, clo
     except FileNotFoundError:
         st.error("Required model files not found. Please ensure all model files are in the correct directory.")
         return None
+def calculate_fare(distance, duration):
+    # Constants
+    booking_fee = 2.02
+    base_fare = 2.45
+    waiting_time_rate = 0.17
+    distance_rate = 0.73
+ 
+    tax_rate = 0.062
+    extra_charge_rate = 0.06
+    minimum_fare = 5.0
 
+    
+    trip_fare = max(base_fare + (waiting_time_rate * duration) + (distance * distance_rate) , minimum_fare)
+    grand_total = trip_fare + booking_fee
+
+    return round(grand_total, 2)
 # Streamlit app
 st.title('Cab Ride Price Predictor')
 
 # Input fields
-distance = st.number_input('Trip Distance (km)', min_value=0.1, max_value=100.0, value=5.0)
-surge_multiplier = st.number_input('Surge Multiplier', min_value=1.0, max_value=3.0, value=1.0)
+distance = st.number_input('Trip Distance (km)', min_value=0.1, max_value=10.0, value=5.0)
+surge_multiplier = st.number_input('Surge Multiplier', min_value=1.0, max_value=5.0, value=1.0)
 rain = st.checkbox('Is it raining?')
 temp = st.number_input('Temperature (°C)', min_value=-50.0, max_value=50.0, value=25.0)
 humidity = st.slider('Humidity (%)', 0, 100, 50)
@@ -81,3 +96,12 @@ if st.button('Predict Price'):
                                      ride_name, cab_type, pickup_hour_counts, hour, day, wind, pressure)
         if price is not None:
             st.success(f'Predicted Price: ${price:.2f}')
+
+# Voo's Current Calculation Section
+st.title("Voo's Current Fare Calculator")
+distance_voo = st.number_input('Trip Distance for Voo (km)', min_value=0.1, max_value=10.0, value=5.0, key='distance_voo')
+duration_voo = st.number_input('Trip Duration (minutes)', min_value=1, max_value=120, value=15)
+
+if st.button('Calculate Voo Fare'):
+    voo_price = calculate_fare(distance_voo, duration_voo)
+    st.success(f"Voo's Current Fare: ${voo_price:.2f}")
