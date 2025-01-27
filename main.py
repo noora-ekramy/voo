@@ -67,7 +67,7 @@ def calculate_fare(distance, duration):
 st.title('Cab Ride Price Predictor')
 
 # Input fields
-distance = st.number_input('Trip Distance (km)', min_value=0.1, max_value=10.0, value=5.0)
+distance = st.number_input('Trip Distance (mil)', min_value=0.1, max_value=10.0, value=5.0)
 surge_multiplier = st.number_input('Surge Multiplier', min_value=1.0, max_value=5.0, value=1.0)
 rain = st.checkbox('Is it raining?')
 temp = st.number_input('Temperature (°C)', min_value=-50.0, max_value=50.0, value=25.0)
@@ -99,7 +99,7 @@ if st.button('Predict Price'):
 
 # Voo's Current Calculation Section
 st.title("Voo's Current Fare Calculator")
-distance_voo = st.number_input('Trip Distance for Voo (km)', min_value=0.1, max_value=10.0, value=5.0, key='distance_voo')
+distance_voo = st.number_input('Trip Distance for Voo (mil)', min_value=0.1, max_value=1000.0, value=5.0, key='distance_voo')
 duration_voo = st.number_input('Trip Duration (minutes)', min_value=1, max_value=120, value=15)
 
 if st.button('Calculate Voo Fare'):
