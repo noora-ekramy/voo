@@ -98,8 +98,8 @@ duration_voo = st.number_input('Trip Duration (minutes)', min_value=1, max_value
 st.subheader("Fare Components")
 booking_fee = st.number_input('Booking Fee ($)', min_value=0.0, value=2.02, step=0.01)
 base_fare = st.number_input('Base Fare ($)', min_value=0.0, value=2.45, step=0.01)
-waiting_time_rate = st.number_input('Waiting Time Rate ($/minute)', min_value=0.0, value=0.17, step=0.01)
-distance_rate = st.number_input('Distance Rate ($/mile)', min_value=0.0, value=0.73, step=0.01)
+waiting_time_rate = st.number_input('charges ($/minute)', min_value=0.0, value=0.17, step=0.01)
+distance_rate = st.number_input('charges ($/mile)', min_value=0.0, value=0.73, step=0.01)
 minimum_fare = st.number_input('Minimum Fare ($)', min_value=0.0, value=5.0, step=0.01)
 
 if st.button('Calculate Voo Fare'):
