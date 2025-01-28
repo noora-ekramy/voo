@@ -130,19 +130,19 @@ pickup_hour_counts_voo = st.number_input('Number of Pickups in Hour', min_value=
 st.subheader("Base Fare Components")
 booking_fee = st.number_input('Booking Fee ($)', min_value=0.0, value=2.02, step=0.01)
 base_fare = st.number_input('Base Fare ($)', min_value=0.0, value=2.45, step=0.01)
-waiting_time_rate = st.number_input('Waiting Time Rate ($/minute)', min_value=0.0, value=0.17, step=0.01)
-distance_rate = st.number_input('Distance Rate ($/mile)', min_value=0.0, value=0.73, step=0.01)
+waiting_time_rate = st.number_input('charges ($/minute)', min_value=0.0, value=0.17, step=0.01)
+distance_rate = st.number_input('charges ($/mile)', min_value=0.0, value=0.73, step=0.01)
 minimum_fare = st.number_input('Minimum Fare ($)', min_value=0.0, value=5.0, step=0.01)
 
 # Factor Adjustment Rates
 st.subheader("Factor Adjustment Rates")
-temp_factor = st.number_input('Temperature Factor', min_value=-0.1, max_value=0.1, value=0.01, step=0.001)
-humidity_factor = st.number_input('Humidity Factor', min_value=-0.1, max_value=0.1, value=0.005, step=0.001)
-clouds_factor = st.number_input('Cloud Coverage Factor', min_value=-0.1, max_value=0.1, value=0.002, step=0.001)
-wind_factor = st.number_input('Wind Speed Factor', min_value=-0.1, max_value=0.1, value=0.01, step=0.001)
-pressure_factor = st.number_input('Pressure Factor', min_value=-0.1, max_value=0.1, value=0.001, step=0.001)
-pickup_factor = st.number_input('Pickup Count Factor', min_value=-0.1, max_value=0.1, value=0.0005, step=0.0001)
-rain_factor = st.number_input('Rain Factor', min_value=0.0, max_value=1.0, value=0.1, step=0.01)
+temp_factor = st.number_input('Temperature Factor', min_value=-0.1, max_value=0.1, value=0.024, step=0.001)
+humidity_factor = st.number_input('Humidity Factor', min_value=-0.1, max_value=0.1, value=0.011, step=0.001)
+clouds_factor = st.number_input('Cloud Coverage Factor', min_value=-0.1, max_value=0.1, value=0.02, step=0.001)
+wind_factor = st.number_input('Wind Speed Factor', min_value=-0.1, max_value=0.1, value=0.013, step=0.001)
+pressure_factor = st.number_input('Pressure Factor', min_value=-0.1, max_value=0.1, value=-0.022, step=0.001)
+pickup_factor = st.number_input('Pickup Count Factor', min_value=-0.1, max_value=0.23, value=0.0005, step=0.0001)
+rain_factor = st.number_input('Rain Factor', min_value=0.0, max_value=1.0, value=-0.017, step=0.01)
 
 if st.button('Calculate Voo Fare'):
     voo_price = calculate_fare(
